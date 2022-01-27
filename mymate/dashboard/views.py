@@ -208,3 +208,40 @@ def books(request):
         form=dashboardform()
     context={'form':form}
     return render(request,'dashboard/books.html',context)
+
+
+
+def dictionary(request):
+    if request.method=='POST':
+        form=dashboardform(request.POST)
+        if form.is_valid():
+            text=request.POST['text']
+            url='https://api.dictionaryapi.dev/api/v2/entries/en_US/'+text
+            r=requests.get(url)
+            answer=r.json()
+            
+            try:
+                phonetics=answer[0]['phonetics'][0]['text']       #decode: in first answer -> first phonetic ->text
+                audio=answer[0]['phonetics'][0]['audio']
+                definition=answer[0]['meanings'][0]['definitions'][0]['definition']
+                example=answer[0]['meanings'][0]['definitions'][0]['example']
+                synonyms=answer[0]['meanings'][0]['definitions'][0]['synonyms']
+                context={
+                    'form':form,
+                    'phonetics':phonetics,
+                    'definition':definition,
+                    'audio':audio,
+                    'example':example,
+                    'synonyms':synonyms,
+                    'input':text
+                    }
+            except:
+                context={
+                   'form':form,
+                    'input':''
+                    }
+            return render(request,'dashboard/dictionary.html',context)
+    else:        
+        form=dashboardform()
+    context={'form':form}
+    return render(request,'dashboard/dictionary.html',context)
