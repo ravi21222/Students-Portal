@@ -34,3 +34,15 @@ class Homework(models.Model):
     class Meta:
         verbose_name = 'homework'
         verbose_name_plural = 'homework'
+
+
+
+class Todo(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    title=models.TextField()
+    status=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+

@@ -60,7 +60,8 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-mymate/settings.py
+
+\mymate\settings.py
 
 # Flask stuff:
 instance/
