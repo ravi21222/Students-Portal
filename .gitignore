@@ -129,3 +129,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+mymate/dashboard/templates/dashboard/error.txt
+
+mymate/mymate/settings.py

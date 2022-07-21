@@ -7,6 +7,7 @@ from django.views import generic
 from youtubesearchpython import VideosSearch
 import requests
 import json
+import wikipedia
 
 # Create your views here.
 def home(request):
@@ -245,3 +246,25 @@ def dictionary(request):
         form=dashboardform()
     context={'form':form}
     return render(request,'dashboard/dictionary.html',context)
+
+
+
+def wikipedia_view(request):
+    if request.method=='POST':
+        form=dashboardform(request.POST)
+        if form.is_valid():
+            text=request.POST['text']
+            search=wikipedia.page(text)
+            context={
+                 'form':form,
+                 'title':search.title,
+                 'link':search.url,
+                 'details':search.summary
+                }
+           
+
+        return render(request,'dashboard/wiki.html',context)
+    else:
+        form=dashboardform()
+    context={'form':form}
+    return render(request,'dashboard/wiki.html',context)
