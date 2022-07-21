@@ -19,7 +19,7 @@ class Homeworkform(forms.ModelForm):
         fields=['subject','title','description','due','is_finish']
 
 
-class dashboardform(forms.Form):
+class dashboardform(forms.Form): ##this is custom form which is not a model form but it is designed for general requirements
     text=forms.CharField(max_length=1000,label='Search here ')
 
 
